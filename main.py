@@ -94,9 +94,8 @@ class EscenaJuego(object):
         self.verificar_colision_mouse_con_casillas(event)
 
     def verificar_colision_mouse_con_casillas(self, pos_mouse):
-        mouse_x, mouse_y = pos_mouse
         for casilla in self.casillas.sprites():
-            if casilla.rect.collidepoint(mouse_x, mouse_y):
+            if casilla.rect.collidepoint(pos_mouse[0], pos_mouse[1]):
                 self.presionando_casilla_con_mouse(casilla)
 
     def presionando_casilla_con_mouse(self, casilla):
@@ -112,18 +111,17 @@ class EscenaJuego(object):
         self.verificar_ganador_en_diagonal()
 
     def verificar_empate(self):
-        for fila, lista in enumerate(self.tablero):
-            if not self.hay_ganador and self.turnos < 1:
-                self.hay_ganador = True
-                print "empate"
-                return
+        if not self.hay_ganador and self.turnos < 1:
+            self.hay_ganador = True
+            print "Empate"
+            return
 
     def verificar_ganador_en_horizontal(self):
         if self.fila_bill in self.tablero:
-            print "Gano Bill en horizontal"
+            print "Ganó Bill en horizontal"
             self.hay_ganador = True
         elif self.fila_steve in self.tablero:
-            print "Gano Steve en horizontal"
+            print "Ganó Steve en horizontal"
             self.hay_ganador = True
 
     def verificar_ganador_en_vertical(self):
@@ -132,10 +130,10 @@ class EscenaJuego(object):
                    self.tablero[1][columna],
                    self.tablero[2][columna]]
             if col == self.fila_bill:
-                print "Gano Bill en vertical"
+                print "Ganó Bill en vertical"
                 self.hay_ganador = True
             elif col == self.fila_steve:
-                print "Gano Steve en vertical"
+                print "Ganó Steve en vertical"
                 self.hay_ganador = True
 
     def verificar_ganador_en_diagonal(self):
@@ -148,10 +146,10 @@ class EscenaJuego(object):
                      self.tablero[2][0]]
 
         if diagonal1 == self.fila_bill or diagonal2 == self.fila_bill:
-            print "Gano Bill en diagonal"
+            print "Ganó Bill en diagonal"
             self.hay_ganador = True
         elif diagonal1 == self.fila_steve or diagonal2 == self.fila_steve:
-            print "Gano Steve en diagonal"
+            print "Ganó Steve en diagonal"
             self.hay_ganador = True
 
     def cambiar_turno(self, casilla):
