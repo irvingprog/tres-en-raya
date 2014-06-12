@@ -114,7 +114,6 @@ class EscenaJuego(object):
         if not self.hay_ganador and self.turnos < 1:
             self.hay_ganador = True
             print "Empate"
-            return
 
     def verificar_ganador_en_horizontal(self):
         if self.fila_bill in self.tablero:
@@ -168,14 +167,15 @@ class EscenaJuego(object):
 
     def reiniciar(self):
         time.sleep(1.5)
+        
         for casilla in self.casillas.sprites():
             casilla.limpiar()
-        else:
-            self.hay_ganador = False
-            self.turnos = 9
-            self.tablero = [[0, 0, 0],
-                            [0, 0, 0],
-                            [0, 0, 0]]
+        
+        self.hay_ganador = False
+        self.turnos = 9
+        self.tablero = [[0, 0, 0],
+                        [0, 0, 0],
+                        [0, 0, 0]]
 
     def dibujar(self, pantalla):
         pantalla.blit(self.fondo, (0, 0))
