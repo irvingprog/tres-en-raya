@@ -154,10 +154,7 @@ class EscenaJuego(object):
     def cambiar_turno(self, casilla):
         self.tablero[casilla.pos[0]][casilla.pos[1]] = self.turno
         self.turnos -= 1
-        if self.turno == "bill":
-            self.turno = "steve"
-        else:
-            self.turno = "bill"
+        self.turno = 'steve' if self.turno == "bill" else 'bill'
 
     def crear_casillas_vacias(self):
         self.casillas = pg.sprite.Group()
