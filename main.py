@@ -124,16 +124,13 @@ class EscenaJuego(object):
             self.hay_ganador = True
 
     def verificar_ganador_en_vertical(self):
-        for columna, _ in enumerate(self.tablero[0]):
-            col = [self.tablero[0][columna],
-                   self.tablero[1][columna],
-                   self.tablero[2][columna]]
-            if col == self.fila_bill:
-                print "Ganó Bill en vertical"
-                self.hay_ganador = True
-            elif col == self.fila_steve:
-                print "Ganó Steve en vertical"
-                self.hay_ganador = True
+        cols = [list(col) for col in zip(*self.tablero)]
+        if self.fila_bill in cols:
+            print "Ganó Bill en vertical"
+            self.hay_ganador = True
+        elif self.fila_steve in cols:
+            print "Ganó Steve en vertical"
+            self.hay_ganador = True
 
     def verificar_ganador_en_diagonal(self):
         diagonal1 = [self.tablero[0][0],
@@ -164,10 +161,10 @@ class EscenaJuego(object):
 
     def reiniciar(self):
         time.sleep(1.5)
-        
+
         for casilla in self.casillas.sprites():
             casilla.limpiar()
-        
+
         self.hay_ganador = False
         self.turnos = 9
         self.tablero = [[0, 0, 0],
