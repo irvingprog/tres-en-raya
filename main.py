@@ -101,7 +101,9 @@ class EscenaJuego(object):
     def presionando_casilla_con_mouse(self, casilla):
         if not casilla.estado:
             casilla.cambiar_estado(self.turno)
-            self.cambiar_turno(casilla)
+            self.poner_ficha_en_tablero(casilla)
+            self.quitar_un_turno()
+            self.cambiar_turno()
             self.verificar_ganador()
             self.verificar_empate()
 
@@ -148,10 +150,15 @@ class EscenaJuego(object):
             print "Ganó Steve en diagonal"
             self.hay_ganador = True
 
-    def cambiar_turno(self, casilla):
-        self.tablero[casilla.pos[0]][casilla.pos[1]] = self.turno
-        self.turnos -= 1
+    def poner_ficha_en_tablero(self, casilla):
+        fila, columna = casilla.pos[0], casilla.pos[1]
+        self.tablero[fila][columna] = self.turno
+
+    def cambiar_turno(self):
         self.turno = 'steve' if self.turno == "bill" else 'bill'
+
+    def quitar_un_turno(self):
+        self.turnos -= 1
 
     def crear_casillas_vacias(self):
         self.casillas = pg.sprite.Group()
